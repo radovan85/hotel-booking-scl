@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+	<th:block th:fragment="ajaxLoadedContent">
+	
+		<div class="container" style="margin-bottom: 100px;margin-top: 100px;font-family: Rajdhani, sans-serif;color: #12044F;font-weight: 700;">
+			<div class="container">
+				<div th:align="${'center'}" class="mb-5">
+					<h2 th:text="${'Note Details'}"></h2>
+				</div>
+			
+				<table class="table table-bordered table-info">
+					<tbody>
+						<tr>
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${'Note Id'}">
+							</td>
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${note.noteId}">
+							</td>
+						</tr>
+						
+						<tr>
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${'Subject'}">
+							</td>
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${note.subject}">
+							</td>
+						</tr>
+						
+						<tr>
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${'Created'}">
+							</td>
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;">
+							 	<span th:text="${note.createdAtStr}"></span>								
+							</td>
+						</tr>
+						
+						<tr>
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${'Text'}">
+							</td>
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${note.text}">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				
+			</div>
+			<div class="text-center mt-5">
+					<button class="btn btn-secondary mr-4" th:onclick="redirectAllNotes()" 
+						th:text="${'Back'}">
+					</button>
+					
+					<button class="btn btn-danger" th:onclick="deleteNote([[${note.noteId}]])"
+						th:text="${'Remove'}">
+					</button>
+			</div>
+		</div>
+	</th:block>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+	<th:block th:fragment="ajaxLoadedContent">
+	
+		<div class="container" style="margin-bottom: 100px;margin-top: 100px;font-family: Rajdhani, sans-serif;color: #12044F;font-weight: 700;">
+	
+			<th:block th:if="${allNotes.size() == 0}">
+				<div align="center">
+					<h2 th:text="${'No notes available currently!'}"></h2>
+				</div>
+			</th:block>
+		
+			<th:block th:if="${allNotes.size() > 0}">
+				<div align="center" class="mb-5">
+					<h2 th:text="${'Notes List!'}"></h2>
+				</div>
+				
+				<div class="mb-5">
+				<button class="btn btn-info mr-3" 
+					th:onclick="redirectAllNotes()"
+					th:text="${'All'}">
+				</button>
+				<button class="btn btn-primary mr-3" 
+					th:onclick="redirectAllNotesFromToday()"
+					th:text="${'Todays Notes'}">
+				</button>
+				
+				<button class="btn btn-danger border-dark " 
+					th:onclick="deleteAllNotes()"
+					th:text="${'Clear All'}">
+				</button>
+
+			</div>
+				
+				<input type="hidden" id="recordsPerPage" th:value="${recordsPerPage}">
+				<table class="table table-stripped table-bordered table-hover table-secondary" id="listingTable">
+					<thead class="table-info">
+						<tr>
+							<th class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${'Note Id'}">
+							</th>
+							<th class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${'Subject'}">
+							</th>
+							<th class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${'Created'}">
+							</th>
+							<th class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${'Actions'}">
+							</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<tr th:each="tempNote : ${allNotes}">
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${tempNote.noteId}">
+							</td>
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${tempNote.subject}">
+							</td>
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;" th:text="${tempNote.createdAtStr}">
+							</td>
+							
+							<td class="text-center"
+								style="text-align: center; vertical-align: middle;">
+								<button class="btn btn-primary" th:onclick="redirectNoteDetails([[${tempNote.noteId}]])" 
+									th:text="${'Details'}">
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<div style="float: right">
+           			<button th:onclick="prevPage()" id="btn_prev">Prev</button>
+						page: <span id="page"></span>
+					<button th:onclick="nextPage()" id="btn_next">Next</button>
+				</div>
+				
+				<script th:src="@{/js/pagination.js}"></script>
+				<script>
+					$(document).ready(function() {
+	 			 		changePage(1);
+					});
+				</script>
+				
+			</th:block>
+		</div>
+	</th:block>

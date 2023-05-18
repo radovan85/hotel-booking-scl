@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="ajaxLoadedContent">
+
+	<div class="container" 
+		style="margin-top: 120px;margin-bottom: 100px;font-family: Rajdhani, sans-serif;color: #12044F;font-weight: 700;">
+		<div class="text-center text-uppercase pt-3"> 
+        	<h3 th:text="${'Registration Form'}"></h3>
+            <hr>
+       	</div>
+            
+        <div class="row mt-2">
+            <div  class="col-md-6 offset-md-3 sigup_form">
+            	<div class="sigup_form">
+    				<form class="mt-3"  th:method="POST" th:object="${registerForm}" id="registrationForm">              
+                		<div class="mb-3 col-md-12">
+                        	<label class="form-label" th:text="${'First Name'}"></label>
+                          	<input 
+                          		type="text" 
+                          		class="form-control" 
+                          		id="firstName"
+                          		th:field="*{user.firstName}"  
+                          		th:placeholder="${'Enter First Name'}"
+                          	/> 
+                          	<span class="text-danger" id="firstNameError"
+                          		 th:text="${'Not empty!Max 30 letters allowed!'}" 
+            					style="visibility: hidden">
+            				</span>    
+                    	</div>
+                    	
+                    	<div class="mb-3 col-md-12">
+                        	<label class="form-label" th:text="${'Last Name'}"></label>
+                          	<input 
+                          		type="text" 
+                          		class="form-control" 
+                          		id="lastName"
+                          		th:field="*{user.lastName}"  
+                          		th:placeholder="${'Enter Last Name'}"
+                          	/> 
+                          	<span class="text-danger" id="lastNameError"
+                          		 th:text="${'Not empty!Max 30 letters allowed!'}" 
+            					style="visibility: hidden">
+            				</span>    
+                    	</div>
+                    	
+                    	<div class="mb-3 col-md-12">
+                        	<label class="form-label" th:text="${'Email'}"></label>
+                          	<input 
+                          		type="text" 
+                          		class="form-control" 
+                          		id="email"
+                          		th:field="*{user.email}"  
+                          		th:placeholder="${'Enter Email Address'}"
+                          	/> 
+                          	<span class="text-danger" id="emailError" 
+                          		th:text="${'Please provide valid email!Max 40 letters allowed!'}" 
+            					style="visibility: hidden">
+            				</span>  
+                    	</div>
+                    	
+                    	<div class="mb-3 col-md-12">
+                        	<label class="form-label" th:text="${'Password'}"></label>
+                          	<input 
+                          		type="password" 
+                          		class="form-control" 
+                          		id="password"
+                          		th:field="*{user.password}"  
+                          		th:placeholder="${'Enter Password'}"
+                          	/> 
+                          	<span class="text-danger" id="passwordError"
+                          		th:text="${'Please provide password!Min 6 max 30 letters!'}" 
+            					style="visibility: hidden">
+            				</span>
+                    	</div>
+                    	
+                    	<div class="mb-3 col-md-12">
+                        	<label class="form-label" th:text="${'Confirm Password'}"></label>
+                          	<input 
+                          		type="password" 
+                          		class="form-control" 
+                          		id="confirmpass" 
+                          		th:placeholder="${'Confirm Password'}"
+                          	/> 
+                    	</div>
+				
+						<div class="mb-3 col-md-12">
+                        	<label class="form-label" th:text="${'Id Number'}"></label>
+                          	<input 
+                          		type="text" 
+                          		class="form-control" 
+                          		id="idNumber"
+                          		th:field="*{guest.idNumber}"  
+                          		th:placeholder="${'Enter Id number'}"
+                          		th:onkeypress="return validateNumber(event)" 
+                          	/> 
+                          	<span class="text-danger" id="idNumberError" 
+                          		th:text="${'Minimum 6 Max 12 Letters!'}" 
+            					style="visibility: hidden">
+            				</span>
+                    	</div>
+                    	
+                    	<div class="mb-5 col-md-12">
+                        	<label class="form-label" th:text="${'Phone'}"></label>
+                          	<input 
+                          		type="text" 
+                          		class="form-control" 
+                          		id="phoneNumber"
+                          		th:field="*{guest.phoneNumber}"  
+                          		th:placeholder="${'Enter Phone Number'}"
+                          		th:onkeypress="return validateNumber(event)" 
+                          	/> 
+                          	<span class="text-danger" id="phoneNumberError" 
+                          		th:text="${'Minimum 9 Max 15 Letters!'}" 
+            					style="visibility: hidden">
+            				</span>
+                    	</div>            	            	            	            									           	           	                   								           	          	
+                    
+                		<div class="text-center">
+    						<button type="submit" 
+    							class="btn btn-info " th:text="${'Register'}" 
+    							th:onclick="return ValidatePassword()">
+    						</button>
+    					</div>    
+               		</form>
+                 </div>
+        	</div>
+    	</div>         
+    </div>
+    <script>
+    	var element = document.getElementById("registrationForm");
+    	element.addEventListener("submit", event => {
+    		event.preventDefault();
+    		var formData = $("#registrationForm");
+    		if(validateRegForm()){
+    			$.ajax({
+    				url : "http://localhost:8080/register",
+					type : "POST",
+					data : formData.serialize()
+    			})
+    			.done(function(){
+    				$("#ajaxLoadedContent").load("/registerComplete");
+    			})
+    			.fail(function(){
+    				$("#ajaxLoadedContent").load("/registerFail");
+    			})
+    		}
+    	})
+	</script>
+            
+</th:block>

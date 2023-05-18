@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+
+
+<th:block th:fragment="ajaxLoadedContent">
+
+	<div class="container-fluid text-center" style="margin-bottom: 100px;margin-top: 100px;font-family: Rajdhani, sans-serif;font-weight: 700;">
+        <div class="row content">
+            <div class="col-sm-2 sidenav">
+                <p></p>
+                
+
+            </div>
+            <div class="col-sm-8 text-left">
+
+                <section>
+                    <div class="text-center">
+                    <img th:src="@{/images/hotel_1.jpeg}">
+                    </div>
+                    <!--Section heading-->
+                    <h2 class="h1-responsive font-weight-bold text-center my-5" >woods</h2>
+                    <!-- Section description -->
+                    <p class="grey-text text-center w-responsive mx-auto mb-5">The hotel is located among trees, overlooking the mountains, where nature meets modern style.</p>
+
+                    <!--Grid row-->
+                    <div class="row mx-1">
+
+                        <!--Grid column-->
+                        <div class="col-md-12 mb-4">
+                            <div class="card card-image" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/img%20%2832%29.jpg);">
+                                <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                                    <div style="color:white;">
+                                        <br>
+                                         <h2 class="card-title py-3 font-weight-bold" ><strong>Hotel</strong></h2>
+                                        <br>
+                                        <p class="pb-3"> Stay with us, in <span style="font-family: 'Inria Serif', serif" >woods</span>
+                                            Elegance, luxurious and contemporary design, as well as numerous amenities for guests - these are just some of the advantages of our unique hotel</p>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid column-->
+<br><br>
+                        <!--Grid column-->
+                        <div class="col-md-6 mb-4">
+                            <div class="card card-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/img%20%2848%29.jpg');">
+                                <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                                    <div style="color:white;">
+                                        <br>
+                                        <h3 class="card-title py-3 font-weight-bold"><strong>Restaurant</strong></h3>
+                                        <br>
+                                        <p class="pb-3">It is not only a hotel, but also a restaurant famous for its delicious cuisine and a large banquet (wedding) room. We also have conference rooms equipped with a projector, sound system, microphone, flipchart, Wi-Fi and air conditioning. We provide hotel guests with professional service and make every effort to ensure that they remember us from the best side.</p>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid column-->
+
+                        <!--Grid column-->
+                        <div class="col-md-6 mb-4">
+                            <div class="card card-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/img%20%2848%29.jpg');">
+                                <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                                    <div style="color:white;">
+                                        <br>
+                                        <h3 class="card-title py-3 font-weight-bold"><strong>Occasional events</strong></h3>
+
+                                        <br>
+                                        <p class="pb-3">Organization of conferences and special events is our specialty. We offer stylishly furnished rooms, elegant conference rooms and a luxurious banquet hall. We are happy to organize weddings, conferences and many parties for you.</p>
+                                        <br><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid column-->
+
+                    </div>
+                    <!--Grid row-->
+
+                </section>
+
+
+            </div>
+            <div class="col-sm-2 sidenav">
+                <div class="well">
+                    <label style="color:darkred; margin-top: 20px;" sec:authorize="isAuthenticated()">
+                        Hello <span sec:authentication="name">!</span>
+                    </label>
+                </div>
+                <div class="well">
+                    <a sec:authorize="hasAuthority('ROLE_USER')" class="btn btn-success" th:onclick="redirectAccountDetails()">Your account</a>
+
+                </div>
+
+            </div>
+        </div>
+        </div>
+</th:block>

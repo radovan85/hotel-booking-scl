@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="ajaxLoadedContent">
+
+	<div class="container" style="margin-top: 100px;margin-bottom: 100px;font-family: Rajdhani, sans-serif;color: #12044F;font-weight: 700;">
+		<th:block th:if="${allReservations.size()==0}">
+			<div th:align="${'center'}" class="mb-5">
+				<h2 th:text="${'No reservations currently'}"></h2>
+			</div>
+		</th:block>
+		
+		<th:block th:if="${allReservations.size() > 0}">
+		
+			<div th:align="${'center'}" class="mb-5">
+				<h2 th:text="${'Reservations List'}"></h2>
+			</div>
+			
+			<div class="mb-5">
+				<button class="btn btn-info mr-3" 
+					th:onclick="redirectAllReservations()"
+					th:text="${'All'}">
+				</button>
+				<button class="btn btn-primary mr-3" 
+					th:onclick="redirectAllActiveReservations()"
+					th:text="${'Active'}">
+				</button>
+				<button class="btn btn-danger" 
+					th:onclick="redirectAllExpiredReservations()"
+					th:text="${'Expired'}">
+				</button>	
+			</div>
+			
+			<input type="hidden" id="recordsPerPage" th:value="${recordsPerPage}">
+			<table class="table table-stripped table-hover table-bordered table-secondary" id="listingTable">
+				<thead class="table-info">
+					<tr>
+						<th class="text-center"
+							style="text-align: center; vertical-align: middle;" th:text="${'Reservation Id'}">
+						</th>
+						<th class="text-center"
+							style="text-align: center; vertical-align: middle;" th:text="${'Room Id'}">
+						</th>
+						<th class="text-center"
+							style="text-align: center; vertical-align: middle;" th:text="${'User'}">
+						</th>
+						<th class="text-center"
+							style="text-align: center; vertical-align: middle;" th:text="${'Check In'}">
+						</th>
+						<th class="text-center"
+							style="text-align: center; vertical-align: middle;" th:text="${'Actions'}">
+						</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="tempReservation : ${allReservations}">
+						<th:block th:each="tempGuest : ${allGuests}">
+							<th:block th:each="tempUser : ${allUsers}">
+								<th:block th:if="${tempReservation.guestId == tempGuest.guestId}">
+									<th:block th:if="${tempGuest.userId == tempUser.id}">
+										<td class="text-center"
+											style="text-align: center; vertical-align: middle;" th:text="${tempReservation.reservationId}">
+										</td>
+										<td class="text-center"
+											style="text-align: center; vertical-align: middle;" th:text="${tempReservation.roomId}">
+										</td>
+										<td class="text-center"
+											style="text-align: center; vertical-align: middle;" th:text="${tempUser.firstName + ' ' + tempUser.lastName}">
+										</td>
+										<td class="text-center"
+											style="text-align: center; vertical-align: middle;" th:text="${tempReservation.checkInDateStr}">
+										</td>
+
+										<td class="text-center"
+											style="text-align: center; vertical-align: middle;">
+											<div th:align="center">
+												<button class="btn btn-info" 
+													th:onclick="redirectReservationDetails([[${tempReservation.reservationId}]])"
+													th:text="${'Details'}">
+												</button>
+											</div>
+										</td>
+									</th:block>
+								</th:block>
+							</th:block>
+						</th:block>
+					</tr>
+				</tbody>
+			</table>
+			
+			<div style="float: right">
+           			<button th:onclick="prevPage()" id="btn_prev">Prev</button>
+						page: <span id="page"></span>
+					<button th:onclick="nextPage()" id="btn_next">Next</button>
+				</div>
+			
+			<script th:src="@{/js/pagination.js}"></script>
+			<script>
+				$(document).ready(function() {
+	 			 	changePage(1);
+				});
+			</script>
+			
+			
+			
+		</th:block>
+		<div th:align="${'center'}" class="mt-5">
+			<button class="btn btn-secondary" th:onclick="redirectHome()" 
+				th:text="${'Home Page'}">
+			</button>
+		</div>
+	</div>
+	
+</th:block>

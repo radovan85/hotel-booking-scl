@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="ajaxLoadedContent">
+
+	<div class="container" style="margin-top: 100px;margin-bottom: 100px;font-family: Rajdhani, sans-serif;color: #12044F;font-weight: 700;">
+	
+		<div th:align="${'center'}" class="mb-5">
+			<h2 th:text="${'Reservation Details'}"></h2>
+		</div>
+		
+		<table class="table table-bordered table-secondary">
+			<tbody>
+				<tr>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${'Reservation Id'}">
+					</td>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${reservation.reservationId}">
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${'Room Number'}">
+					</td>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${room.roomNumber}">
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${'User'}">
+					</td>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${user.firstName + ' ' + user.lastName}">
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${'Email'}">
+					</td>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${user.email}">
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${'Category'}">
+					</td>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${category.name}">
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${'Nights Per Stay'}">
+					</td>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${reservation.numberOfNights}">
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${'Price'}">
+					</td>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;"> 
+						<span>&euro;</span>
+						<span th:text="${reservation.price}"></span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${'Check-In'}">
+					</td>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${reservation.checkInDateStr}">
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${'Check-Out'}">
+					</td>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${reservation.checkOutDateStr}">
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${'Created'}">
+					</td>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${createdAtStr}">
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${'Updated'}">
+					</td>
+					<td class="text-center"
+						style="text-align: center; vertical-align: middle;" th:text="${updatedAtStr}">
+					</td>
+				</tr>
+				
+				
+			</tbody>
+		</table>
+		<div class="text-center mt-5">
+			<button class="btn btn-secondary mr-3" th:onclick="redirectAllReservations()" 
+				th:text="${'All Reservations'}">
+			</button>
+			
+			<button class="btn btn-info mr-3" th:onclick="redirectSwitchRoom([[${reservation.reservationId}]])" 
+				th:text="${'Switch Room'}">
+			</button>
+			
+			<button class="btn btn-danger" th:onclick="deleteReservationAdmin([[${reservation.reservationId}]])"
+				th:text="${'Remove'}">
+			</button>
+		</div>
+	</div>
+</th:block>

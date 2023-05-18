@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="ajaxLoadedContent">
+
+	<div class="container-fluid text-center" style="margin-bottom: 100px;margin-top: 100px;font-family: Rajdhani, sans-serif;font-weight: 700;">
+    <div class="row content">
+        
+        <div class="col-sm-8 text-left">
+
+            <!--Section heading-->
+            <h2 class="h1-responsive font-weight-bold text-center my-5" >Woods</h2>
+            <!-- Section description -->
+            <p class="grey-text text-center w-responsive mx-auto mb-5">Siedlce Lesna Street 101</p>
+            <p class="grey-text text-center w-responsive mx-auto mb-5">000 - 000 - 000</p>
+
+            <div class="text-center">
+                <img th:src="@{/images/hotel_1.jpeg}" >
+            </div>
+
+
+        </div>
+       
+    </div>
+    </div>
+
+</th:block>

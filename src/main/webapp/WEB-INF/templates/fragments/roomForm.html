@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<th:block th:fragment="ajaxLoadedContent">
+
+	<div class="container" 
+		style="margin-top: 120px;margin-bottom: 100px;font-family: Rajdhani, sans-serif;color: #12044F;font-weight: 700;">
+		<div class="text-center text-uppercase pt-3"> 
+        	<h3 th:text="${'Room Form'}"></h3>
+            <hr>
+       	</div>
+            
+        <div class="row mt-2">
+            <div  class="col-md-6 offset-md-3 sigup_form">
+            	<div class="sigup_form">
+					<form class="mt-3" th:method="POST" th:object="${room}" id="roomForm">
+		
+						<div class="mb-3 col-md-12">
+                        	<label class="form-label" th:text="${'Room Number'}"></label>
+                          	<input 
+                          		type="text" 
+                          		class="form-control" 
+                          		id="roomNumber"
+                          		name="roomNumber"  
+                          		th:placeholder="${'Enter Room Number'}"
+                          		th:onkeypress="return validateNumber(event)"
+                          	/> 
+            				<span class="text-danger" id="roomNumberError" 
+            					th:text="${'Please provide room number!'}" 
+            					style="visibility: hidden">
+            				</span>    
+                    	</div>
+                    
+                    	<div class="mb-5 col-md-12">
+                        	<label class="form-label" th:text="${'Room Category'}"></label> 
+                        	<select class="form-control" id="roomCategory"  name="roomCategoryId">
+           						<option th:value="''" th:text="${'Please Select'}"></option>
+            					<option th:each="tempCategory : ${allCategories}" 
+            						th:value="${tempCategory.roomCategoryId}" 
+            						th:text="${tempCategory.name}" >
+    							</option>
+        					</select>
+            				<span class="text-danger" id="roomCategoryError" 
+            					th:text="${'Please provide room category!'}" 
+            					style="visibility: hidden">
+            				</span>    
+                    	</div>
+           		
+           				<div class="text-center">
+    						<button type="submit" class="btn btn-info " 
+    							th:text="${'Submit'}">
+    						</button>
+    					</div>   
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+	<script>
+		var element = document.getElementById("roomForm");
+		element.addEventListener("submit", event => {
+			event.preventDefault();
+			var formData = $("#roomForm");
+			if(validateRoom()){
+				$.ajax({
+					url : "http://localhost:8080/admin/createRoom",
+					type : "POST",
+					data : formData.serialize()
+				})
+				.done(function(){
+					$("#ajaxLoadedContent").load("/admin/allRooms");
+				})
+				.fail(function(){
+					$("#ajaxLoadedContent").load("/admin/roomNumberError");
+				})
+			}
+		})
+	</script>
+</th:block>
