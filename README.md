@@ -1,3 +1,7 @@
+# hotel-booking
+
+#### Hotel booking application with Spring Framework 6, Scala2, Thymeleaf, Ajax...
+
 ## IDE
 
 <img src="https://img.shields.io/badge/IntelliJ_IDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white" /> 
